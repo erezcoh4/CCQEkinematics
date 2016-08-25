@@ -15,7 +15,9 @@
 #define BASICKINEMATICS_H
 
 #include <iostream>
-#include "../../mySoftware/MySoftwarePackage/myIncludes.h"
+#include "/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/myIncludes.h"
+#include "/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/TCalculations.h"
+//#define Mmuon 0.1056
 
 /**
    \class BasicKinematics
@@ -30,11 +32,13 @@ public:
     BasicKinematics(){}
     ~BasicKinematics(){}
 
-    BasicKinematics(TTree * , Int_t debug = 0);
     
     
+    // initializers
+          BasicKinematics (TTree * , Int_t debug = 0);
+    void      InitOutTree ();
     
-    
+
     // Setters
     void       SetOutTree (TTree * tree)    {OutTree = tree;};
     void         SetDebug (int _debug)      {debug = _debug;};
@@ -43,18 +47,18 @@ public:
     
     
     // running
-    void ComputeKinematics ();
-    void         PrintData ( int);
+    void ComputeKinematics ( Double_t fEv );
+    void         PrintData ( int );
+    
+    TRandom3    rand;
+    TTree       * OutTree;
     
     
-    TTree * OutTree;
+    
+    Int_t       debug;
     
     
-    
-    Int_t   debug;
-    
-    
-    Float_t     Ev;
+    Double_t    Ev  , p_muon    , Px    , Py    , Pz    ;
     
     
     TLorentzVector neutrino , neutron , muon , proton;
