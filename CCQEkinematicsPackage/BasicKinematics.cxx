@@ -34,14 +34,21 @@ void BasicKinematics::ComputeKinematics( Double_t fEv ){
     Ev = fEv;
     
     neutrino= TLorentzVector ( 0 , 0 , Ev, Ev );
-    neutron = TLorentzVector ( 0 , 0 , 0 , 0  );
+    neutron = TLorentzVector ( 0 , 0 , 0 , Mn  );
     
     
-    p_muon = rand.Uniform( 0 , neutrino.P() );
-    rand.Sphere( Px , Py , Pz , p_muon );
-    muon = TLorentzVector( Px , Py , Pz , sqrt( p_muon*p_muon + Mmu*Mmu ) );
+    int i = 0;
+    do {
 
-    proton  = neutrino + neutron - muon;
+        p_muon = rand.Uniform( 0 , neutrino.P() );
+        rand.Sphere( Px , Py , Pz , p_muon );
+        muon.SetXYZM( Px , Py , Pz , Mmu );
+        proton  = neutrino + neutron - muon;
+
+        if(debug>4) Printf("loop i = %d, M(p) = %.2f",i++,proton.Mag());
+        
+    } while ( fabs(proton.Mag()-0.94) > 0.01 );
+    
     
     OutTree->Fill();
     
