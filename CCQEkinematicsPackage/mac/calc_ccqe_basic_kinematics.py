@@ -1,7 +1,7 @@
 '''
     usage:
     ---------
-    python mac/calc_ccqe_basic_kinematics.py -v3 -evf=1 -p1 --Ev=0.2
+    python mac/calc_ccqe_basic_kinematics.py -v3 -p1 --Ev=0.2 -evf=10
     
     Note: --Ev=0 gives the BNB neutrino flux
 '''
